@@ -61,3 +61,5 @@ function displayMembers() {
     memberTable.insertAdjacentHTML("beforeend", memberTableHTML);
   }
 }
+// Match results with members: const member = members.find((member) => member.id == result.memberId);
+//     result.member = member;
