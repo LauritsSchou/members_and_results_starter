@@ -1,0 +1,13 @@
+{
+  "name": "members_and_results_starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tabs.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
