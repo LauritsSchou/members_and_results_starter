@@ -9,14 +9,23 @@ async function initApp() {
   initTabs();
   await getResults();
   displayResults(results);
-  // TODO: Make the rest of the program ...
+  await getMembers();
+  displayMembers();
 }
 async function getResults() {
   const response = await fetch("./results.json");
-  const resultJson = await response.json();
-  for (const resultData of resultJson) {
+  const resultsJSON = await response.json();
+  for (const resultData of resultsJSON) {
     const constructedResult = result.construct(resultData);
     results.push(constructedResult);
+  }
+}
+async function getMembers() {
+  const response = await fetch("./members.json");
+  const membersJSON = await response.json();
+  for (const memberData of membersJSON) {
+    const constructedMember = member.constructMember(memberData);
+    members.push(constructedMember);
   }
 }
 function displayResults(results) {
@@ -34,5 +43,21 @@ function displayResults(results) {
    </tr>
     `;
     resultTable.insertAdjacentHTML("beforeend", resultTableHTML);
+  }
+}
+function displayMembers() {
+  const memberTable = document.querySelector("#memberTableBody");
+  memberTable.innerHTML = "";
+  for (const member of members) {
+    const memberTableHTML = /*html*/ `
+    <tr>
+    <td>${member.name}</td>
+    <td>${member.active}</td>
+    <td>${member.birthday}</td>
+    <td>Alder</td>
+    <td>Aldersgruppe</td>
+    </tr>
+    `;
+    memberTable.insertAdjacentHTML("beforeend", memberTableHTML);
   }
 }
