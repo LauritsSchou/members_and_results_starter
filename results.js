@@ -1,5 +1,5 @@
-function construct(resultData) {
-  const resultObj = {
+function constructResult(resultData) {
+  const ResultObject = {
     id: resultData.id,
     competitionLocation: resultData.competitionLocation,
     competitionName: resultData.competitionName,
@@ -10,8 +10,11 @@ function construct(resultData) {
     resultType: resultData.resultType,
     originalTime: resultData.time,
     time: resultData.time,
-    setTimeFromString(time) {
-      const timeParts = time.split(":");
+  };
+  Object.freeze(resultData.id);
+  Object.defineProperty(ResultObject, "setTimeFromString", {
+    value: function () {
+      const timeParts = this.time.split(":");
       const minutes = parseInt(timeParts[0], 10);
       const secondsAndMilliseconds = timeParts[1].split(".");
       const seconds = parseInt(secondsAndMilliseconds[0], 10);
@@ -21,23 +24,29 @@ function construct(resultData) {
 
       this.time = totalTimeInSeconds;
     },
-    isTraining() {
+    enumerable: false,
+  });
+  Object.defineProperty(ResultObject, "isTraining", {
+    value: function () {
       if (this.resultType === "training") {
         return true;
       } else {
         return false;
       }
     },
-    isCompetition() {
-      if (this.resultType === "competition") {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  };
-  Object.freeze(resultData.id);
-  resultObj.setTimeFromString(resultData.time);
-  return resultObj;
+    enumerable: false,
+  }),
+    Object.defineProperty(ResultObject, "isCompetition", {
+      value: function () {
+        if (this.resultType === "competition") {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      enumerable: false,
+    }),
+    ResultObject.setTimeFromString(resultData.time);
+  return ResultObject;
 }
-export { construct };
+export { constructResult };

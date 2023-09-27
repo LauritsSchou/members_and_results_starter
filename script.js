@@ -16,7 +16,7 @@ async function getResults() {
   const response = await fetch("./results.json");
   const resultsJSON = await response.json();
   for (const resultData of resultsJSON) {
-    const constructedResult = result.construct(resultData);
+    const constructedResult = result.constructResult(resultData);
     results.push(constructedResult);
   }
 }
@@ -51,7 +51,7 @@ function checkResultType(result) {
     HTML = /*html*/ `Træning`;
     return HTML;
   } else if (result.isCompetition() === true) {
-    HTML = /*html*/ `Konkurrence`;
+    HTML = /*html*/ `Stævne`;
     return HTML;
   }
 }
