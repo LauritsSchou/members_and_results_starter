@@ -17,6 +17,7 @@ async function getResults() {
   const resultsJSON = await response.json();
   for (const resultData of resultsJSON) {
     const constructedResult = result.constructResult(resultData, members);
+
     results.push(constructedResult);
   }
 }
@@ -92,11 +93,7 @@ function checkMemberStatus(member) {
     return HTML;
   }
 }
-function findMemberNameById(members, resultData) {
-  let member = members.find((member) => member.id === resultData.memberId);
-  console.log(member);
-  return member;
-}
+
 function translateDisciplinesToDanish(result) {
   let HTML;
   if (result.discipline === "breaststroke") {
@@ -124,4 +121,9 @@ function translateDateToDanish(result) {
   const danishDate = date.toLocaleDateString("da-DK", options);
   return danishDate;
 }
-export { findMemberNameById };
+function findMember(members, result) {
+  const foundMember = members.find((member) => member.id == result.memberId);
+  console.log(foundMember);
+  return foundMember;
+}
+export { findMember };

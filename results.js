@@ -1,6 +1,8 @@
-import { findMemberNameById } from "./script.js";
+import { findMember } from "./script.js";
 
 function constructResult(resultData, members) {
+  console.log(members);
+  const member = findMember(members, resultData);
   const ResultObject = {
     id: resultData.id,
     competitionLocation: resultData.competitionLocation,
@@ -12,9 +14,8 @@ function constructResult(resultData, members) {
     resultType: resultData.resultType,
     originalTime: resultData.time,
     time: resultData.time,
-    member: findMemberNameById(members, resultData.memberId),
+    member: member,
   };
-  ResultObject.member = findMemberNameById(members, resultData.memberId);
   Object.freeze(resultData.id);
   Object.defineProperty(ResultObject, "setTimeFromString", {
     value: function () {
@@ -51,7 +52,6 @@ function constructResult(resultData, members) {
       enumerable: false,
     }),
     ResultObject.setTimeFromString(resultData.time);
-  findMemberNameById(members, ResultObject);
   return ResultObject;
 }
 export { constructResult };

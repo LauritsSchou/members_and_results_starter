@@ -1,5 +1,6 @@
 function constructMember(memberdata) {
   const MemberObject = {
+    id: memberdata.id,
     firstName: memberdata.firstName,
     lastName: memberdata.lastName,
     active: memberdata.isActiveMember,
