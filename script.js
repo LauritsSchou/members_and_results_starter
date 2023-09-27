@@ -16,7 +16,7 @@ async function getResults() {
   const response = await fetch("./results.json");
   const resultsJSON = await response.json();
   for (const resultData of resultsJSON) {
-    const constructedResult = result.constructResult(resultData);
+    const constructedResult = result.constructResult(resultData, members);
     results.push(constructedResult);
   }
 }
@@ -35,9 +35,9 @@ function displayResults(results) {
   for (const result of results) {
     const resultTableHTML = /*html*/ `
    <tr>
-   <td>${result.date}</td>
-   <td>${result.id}</td>
-   <td>${result.discipline}</td>
+   <td>${translateDateToDanish(result)}</td>
+   <td>${result.member}</td>
+   <td>${translateDisciplinesToDanish(result)}</td>
    <td>${checkResultType(result)}</td>
    <td>${result.originalTime}</td>
    </tr>
@@ -92,5 +92,36 @@ function checkMemberStatus(member) {
     return HTML;
   }
 }
-// Match results with members: const member = members.find((member) => member.id == result.memberId);
-//     result.member = member;
+function findMemberNameById(members, resultData) {
+  let member = members.find((member) => member.id === resultData.memberId);
+  console.log(member);
+  return member;
+}
+function translateDisciplinesToDanish(result) {
+  let HTML;
+  if (result.discipline === "breaststroke") {
+    HTML = /*html*/ "Bryst";
+    return HTML;
+  } else if (result.discipline === "backstroke") {
+    HTML = "Ryg";
+    return HTML;
+  } else if (result.discipline === "butterfly") {
+    HTML = "Butterfly";
+    return HTML;
+  } else if (result.discipline === "freestyle") {
+    HTML = "Freestyle";
+    return HTML;
+  }
+}
+function translateDateToDanish(result) {
+  const date = new Date(result.date);
+  const options = {
+    weekday: "short",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  };
+  const danishDate = date.toLocaleDateString("da-DK", options);
+  return danishDate;
+}
+export { findMemberNameById };
