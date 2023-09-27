@@ -51,14 +51,34 @@ function displayMembers() {
   for (const member of members) {
     const memberTableHTML = /*html*/ `
     <tr>
-    <td>${member.name}</td>
-    <td>${member.active}</td>
+    <td>${member.name()}</td>
+    <td>${checkMemberStatus(member)}</td>
     <td>${member.birthday}</td>
-    <td>Alder</td>
-    <td>Aldersgruppe</td>
+    <td>${member.age()}</td>
+    <td>${checkMemberAgeGroup(member)}</td>
     </tr>
     `;
     memberTable.insertAdjacentHTML("beforeend", memberTableHTML);
+  }
+}
+function checkMemberAgeGroup(member) {
+  let HTML;
+  if (member.isJunior() === true) {
+    HTML = /*html*/ `Junior`;
+    return HTML;
+  } else {
+    HTML = /*html*/ `Senior`;
+    return HTML;
+  }
+}
+function checkMemberStatus(member) {
+  let HTML;
+  if (member.active === true) {
+    HTML = /*html*/ `Aktiv`;
+    return HTML;
+  } else {
+    HTML = /*html*/ `Inaktiv`;
+    return HTML;
   }
 }
 // Match results with members: const member = members.find((member) => member.id == result.memberId);
