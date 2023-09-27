@@ -21,8 +21,22 @@ function construct(resultData) {
 
       this.time = totalTimeInSeconds;
     },
+    isTraining() {
+      if (this.resultType === "training") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isCompetition() {
+      if (this.resultType === "competition") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   };
-
+  Object.freeze(resultData.id);
   resultObj.setTimeFromString(resultData.time);
   return resultObj;
 }

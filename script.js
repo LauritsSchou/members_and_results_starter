@@ -38,13 +38,24 @@ function displayResults(results) {
    <td>${result.date}</td>
    <td>${result.id}</td>
    <td>${result.discipline}</td>
-   <td>${result.resultType}</td>
+   <td>${checkResultType(result)}</td>
    <td>${result.originalTime}</td>
    </tr>
     `;
     resultTable.insertAdjacentHTML("beforeend", resultTableHTML);
   }
 }
+function checkResultType(result) {
+  let HTML;
+  if (result.isTraining() === true) {
+    HTML = /*html*/ `Træning`;
+    return HTML;
+  } else if (result.isCompetition() === true) {
+    HTML = /*html*/ `Konkurrence`;
+    return HTML;
+  }
+}
+
 function displayMembers() {
   const memberTable = document.querySelector("#memberTableBody");
   memberTable.innerHTML = "";
