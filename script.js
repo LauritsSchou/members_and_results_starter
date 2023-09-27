@@ -51,7 +51,7 @@ function displayMembers() {
   for (const member of members) {
     const memberTableHTML = /*html*/ `
     <tr>
-    <td>${member.name()}</td>
+    <td>${member.name}</td>
     <td>${checkMemberStatus(member)}</td>
     <td>${member.birthday}</td>
     <td>${member.age()}</td>

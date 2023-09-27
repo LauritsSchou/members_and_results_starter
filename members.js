@@ -9,9 +9,7 @@ function constructMember(memberdata) {
     gender: memberdata.gender,
     image: memberdata.image,
     hasPayed: memberdata.hasPayed,
-    name() {
-      return this.firstName + " " + this.lastName;
-    },
+
     age() {
       const dob = new Date(this.birthday);
       const monthDiff = Date.now() - dob.getTime();
@@ -35,7 +33,15 @@ function constructMember(memberdata) {
       }
     },
   };
-
+  Object.freeze(memberdata.id);
+  Object.defineProperty(MemberObject, "name", {
+    value: memberdata.firstName + " " + memberdata.lastName,
+    enumerable: false,
+  });
+  Object.defineProperty(MemberObject, "image", {
+    value: memberdata.image,
+    enumerable: false,
+  });
   return MemberObject;
 }
 export { constructMember };
