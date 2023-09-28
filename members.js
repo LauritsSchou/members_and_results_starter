@@ -11,7 +11,7 @@ function constructMember(memberdata) {
     image: memberdata.image,
     hasPayed: memberdata.hasPayed,
 
-    age() {
+    get age() {
       const dob = new Date(this.birthday);
       const monthDiff = Date.now() - dob.getTime();
       const ageDateFormat = new Date(monthDiff);
@@ -19,15 +19,15 @@ function constructMember(memberdata) {
       const age = Math.abs(year - 1970);
       return age;
     },
-    isJunior() {
-      if (this.age() < 18) {
+    get isJunior() {
+      if (this.age < 18) {
         return true;
       } else {
         return false;
       }
     },
-    isSenior() {
-      if (this.age() >= 18) {
+    get isSenior() {
+      if (this.age >= 18) {
         return true;
       } else {
         return false;
