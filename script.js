@@ -7,10 +7,10 @@ let results = [];
 let members = [];
 async function initApp() {
   initTabs();
-  await getResults();
-  displayResults(results);
   await getMembers();
   displayMembers();
+  await getResults();
+  displayResults(results);
 }
 async function getResults() {
   const response = await fetch("./results.json");
@@ -34,10 +34,14 @@ function displayResults(results) {
   resultTable.innerHTML = "";
   results.sort((a, b) => a.time - b.time);
   for (const result of results) {
+    let name = "Ukendt medlem";
+    if (result.member !== undefined) {
+      name = result.member.name;
+    }
     const resultTableHTML = /*html*/ `
    <tr>
    <td>${translateDateToDanish(result)}</td>
-   <td>${result.member}</td>
+   <td>${name}</td>
    <td>${translateDisciplinesToDanish(result)}</td>
    <td>${checkResultType(result)}</td>
    <td>${result.originalTime}</td>
@@ -121,8 +125,8 @@ function translateDateToDanish(result) {
   const danishDate = date.toLocaleDateString("da-DK", options);
   return danishDate;
 }
-function findMember(members, result) {
-  const foundMember = members.find((member) => member.id == result.memberId);
+function findMember(memberId) {
+  const foundMember = members.find((member) => member.id === memberId);
   console.log(foundMember);
   return foundMember;
 }
